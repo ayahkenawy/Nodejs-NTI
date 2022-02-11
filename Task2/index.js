@@ -40,6 +40,10 @@ yargs.command({
             demandOption: true,
             describe: "User Phone",
         },
+        // balance: {
+        //     demandOption: true,
+        //     describe: "User balance",
+        // },
         age: {
             demandOption: true,
             describe: "User Age",
@@ -63,6 +67,74 @@ yargs.command({
     },
     handler: (argv) => {
         users.addUser(argv)
+    }
+})
+yargs.command({
+    command: "showUser",
+    describe: "Show Users Data",
+    handler: () => {
+        users.showUser()
+    }
+})
+yargs.command({
+    command: "addUserAddress",
+    describe: "Add User Address",
+    builder: {
+        id: { demandOption: true },
+        addressType: { demandOption: true },
+        addressDetails: { demandOption: true }
+    },
+    handler: (argv) => {
+        users.addAddress(argv)
+    }
+})
+yargs.command({
+    command: "addUserTrans",
+    describe: "Add User Transaction",
+    builder: {
+        id: { demandOption: true },
+        transType: { demandOption: true },
+        transValue: { demandOption: true }
+    },
+    handler: (argv) => {
+        users.addTrans(argv)
+    }
+})
+yargs.command({
+    command: "showSingleUser",
+    builder: {
+        id: { demandOption: true }
+    },
+    describe: "Show Single Users Data",
+    handler: (argv) => {
+        users.showSingleUser(argv)
+    }
+})
+yargs.command({
+    command: "deleteSingleUser",
+    builder: {
+        id: { demandOption: true }
+    },
+    describe: "Delete Single Users Data",
+    handler: (argv) => {
+        users.deleteSingleUser(argv)
+    }
+})
+yargs.command({
+    command: "deleteAll",
+    describe: "Delete Users Data",
+    handler: () => {
+        users.deleteAll()
+    }
+})
+yargs.command({
+    command: "editUser",
+    describe: "Edit User Data",
+    builder: {
+        id: { demandOption: true }
+    },
+    handler: (args) => {
+        users.editUser(args)
     }
 })
 yargs.argv

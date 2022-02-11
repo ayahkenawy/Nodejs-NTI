@@ -16,6 +16,10 @@ userData = [{
         invalid: (data) => !validator.isMobilePhone(data, ['ar-EG']) ? "invalid phone" : false
     },
     {
+        element: "balance",
+        default: 5000,
+        invalid: (data) => false
+    }, {
         element: "age",
         default: null,
         invalid: (data) => data < 21 ? "invalid age" : false
@@ -63,6 +67,90 @@ const addUser = (args) => {
     }
 
 }
+const showUser = () => {
+    const users = dealWithData.readDataFromJSON("./db/data.json")
+    console.log(users);
+    return users
+}
+const addAddress = (args) => {
+    try {
+        const users = dealWithData.readDataFromJSON("./db/data.json")
+        let user = users.findIndex(u => u.id == args.id)
+        if (user == -1) throw new Error("User Not Found")
+        users[user].addresses.push({
+            addressID: Date.now(),
+            addressType: args.addressType,
+            addressDetails: args.addressDetails
+        })
+        dealWithData.writeDataToFile('./db/data.json', users)
+        console.log("Data Added")
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+const addTrans = (args) => {
+    try {
+        const users = dealWithData.readDataFromJSON("./db/data.json")
+        let user = users.findIndex(u => u.id == args.id)
+        if (user == -1) throw new Error("User Not Found")
+        users[user].transactions.push({
+            transID: Date.now(),
+            transType: args.transType,
+            transValue: args.transValue
+        })
+        dealWithData.writeDataToFile('./db/data.json', users)
+        console.log("Data Added")
+    } catch (error) {
+        console.log(error.message)
+    }
+
+}
+const deleteAll = () => {
+    dealWithData.writeDataToFile([])
+    console.log("All Data Deleted")
+}
+const deleteSingleUser = (args) => {
+    try {
+        const users = dealWithData.readDataFromJSON("./db/data.json")
+        let user = users.findIndex(u => u.id == args.id)
+        if (user == -1) throw new Error("User Not Found")
+        users.splice(user, 1)
+        dealWithData.writeDataToFile('./db/data.json', users)
+        console.log("Data Deleted")
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+const showSingleUser = (args) => {
+    try {
+        const users = dealWithData.readDataFromJSON("./db/data.json")
+        let user = users.find(u => u.id == args.id)
+        if (!user) throw new Error("User Not Found")
+        console.log(user)
+    } catch (error) {
+        console.log(error.message)
+    }
+}
+const editUser = (args) => {
+    try {
+        const users = dealWithData.readDataFromJSON("./db/data.json")
+        let user = users.find(u => u.id == args.id)
+        if (!user) throw new Error("User Not Found")
+        userData.forEach(d => {
+            if (args[d.element]) user[d.element] = args[d.element]
+        })
+        console.log(user)
+    } catch (error) {
+        console.log(error.message)
+    }
+}
 module.exports = {
-    addUser
+    addUser,
+    showUser,
+    addAddress,
+    addTrans,
+    deleteAll,
+    deleteSingleUser,
+    showSingleUser,
+    editUser
 }
