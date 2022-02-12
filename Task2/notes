@@ -6,7 +6,7 @@ user = {
     age:>21,
     addedAt:,
     email:is email,
-    addressess:[{
+    addresses:[{
         addressType:,
         addressDetails:,
 

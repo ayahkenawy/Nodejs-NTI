@@ -27,6 +27,42 @@
 // yargs.argv
 // -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
 const yargs = require("yargs")
-
-
+const users = require('./dealWithData/users')
+yargs.command({
+    command: "addUser",
+    describe: "Add New User",
+    builder: {
+        name: {
+            demandOption: true,
+            describe: "User Name",
+        },
+        phone: {
+            demandOption: true,
+            describe: "User Phone",
+        },
+        age: {
+            demandOption: true,
+            describe: "User Age",
+        },
+        // addedAt: {
+        //     default: timeFormat(new Date()),
+        //     describe: "User Added At",
+        // },
+        email: {
+            demandOption: true,
+            describe: "User Email",
+        }
+        // addresses: {
+        //     default: [],
+        //     describe: "User Address",
+        // },
+        // transactions: {
+        //     default: [],
+        //     describe: "User Transactions",
+        // }
+    },
+    handler: (argv) => {
+        users.addUser(argv)
+    }
+})
 yargs.argv

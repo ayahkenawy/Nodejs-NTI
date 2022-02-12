@@ -22,11 +22,11 @@ const readDataFromJSON = (fileName) => {
     }
     return data
 }
-const timeFormatter = (d) => {
-    return `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()}`
+const timeFormat = (time) => {
+    return `${time.getDate()}-${time.getMonth()+1}-${time.getFullYear()}`
 }
 module.exports = {
     writeDataToFile,
     readDataFromJSON,
-    timeFormatter
+    timeFormat
 }
