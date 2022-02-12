@@ -1,0 +1,18 @@
+
+user = {
+    id:,
+    name:required,
+    phone:ismobile,
+    age:>21,
+    addedAt:,
+    email:is email,
+    addressess:[{
+        addressType:,
+        addressDetails:,
+
+    }],
+    transactions[{
+        transType:,
+        transValue:
+    }]
+}
