@@ -108,7 +108,7 @@ if (addClient) {
     addClient.addEventListener("submit", (e) => {
             e.preventDefault()
             let client = {
-                id: Date.now()
+                accountNumber: Date.now()
             }
             clientHeads.forEach((head) => client[head] = addClient.elements[head].value)
     const clients = readFromStorage("clients")
@@ -130,30 +130,31 @@ const singlewrap = document.querySelector("#singlewrap")
 if (singlewrap) {
     const client = JSON.parse(localStorage.getItem("client"))
     singlewrap.innerHTML = `
-    <div class="col-md-6 col-12 border border-2 border-primary">
-    <h5>ID</h5>
+    <div class=" col-12 border border-2 border-primary">
+    <h5>Account Number</h5>
     <p>${
     client.accountNumber
 }</p>
     </div>
-    <div class="col-md-6 col-12 border border-2 border-primary">
+    <div class=" col-12 border border-2 border-primary">
     <h5>Client Name</h5>
     <p>${
     client.clientName
 }</p>
     </div>
-    <div class="col-md-6 col-12 border border-2 border-primary">
+    <div class=" col-12 border border-2 border-primary">
     <h5>Balance</h5>
     <p>${
     client.balance
 }</p>
-    <div class="col-md-12 col-12  border border-2 border-primary">
+</div>
+    <div class=" col-12  border border-2 border-primary">
     <h5>Account Type</h5>
     <p>${
     client.accountType
 }</p>
     </div>
-    <div class="col-md-12 col-12  border border-2 border-primary">
+    <div class=" col-12  border border-2 border-primary">
     <h5>Created Date</h5>
     <p>${
     client.createdDate
