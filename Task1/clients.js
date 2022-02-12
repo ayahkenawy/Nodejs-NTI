@@ -1,4 +1,4 @@
-const clientHeads = ["clientName", "balance", "accountNumber", "createdDate"]
+const clientHeads = ["clientName", "balance","accountType" ,"createdDate"]
 const addClient = document.querySelector("#addClient") // form   undife =>false
 const datawrap = document.querySelector("#datawrap")
 const delAll = document.querySelector("#delAll")
@@ -50,6 +50,7 @@ const drawclient = (client, index) => {
     createMyOwnElement(elementObjCreator("td", tr, client.id, null, []))
     createMyOwnElement(elementObjCreator("td", tr, client.clientName, null, []))
     createMyOwnElement(elementObjCreator("td", tr, client.accountNumber, null, []))
+    createMyOwnElement(elementObjCreator("td", tr, client.accountType, null, []))
     createMyOwnElement(elementObjCreator("td", tr, client.createdDate, null, []))
     const tdTrans = createMyOwnElement(elementObjCreator("td", tr, null, null, []))
     const transBtn = createMyOwnElement(elementObjCreator("a", tdTrans, "Transactions", "btn btn-warning mx-3", [{
@@ -59,7 +60,7 @@ const drawclient = (client, index) => {
     const tdControls = createMyOwnElement(elementObjCreator("td", tr, null, null, []))
     const singleBtn = createMyOwnElement(elementObjCreator("button", tdControls, "Show", "btn btn-success mx-3", []))
     singleBtn.addEventListener("click", () => showElement(client))
-    const editBtn = createMyOwnElement(elementObjCreator("a", tdControlstd, "Edit", "btn btn-warning mx-3", [{
+    const editBtn = createMyOwnElement(elementObjCreator("a", tdControls, "Edit", "btn btn-warning mx-3", [{
             key: "href",
             val: "edit.html"
         }]))
@@ -92,10 +93,10 @@ const drawAllclients = (clients) => {
     clients.forEach((client, i) => drawclient(client, i))
 }
 const drawAccountTypes = (accTypes) => {
-    accTypes.forEach(clientType => {
-            createMyOwnElement(elementObjCreator("option", document.querySelector("#accType"), clientType, null, [{
+    accTypes.forEach(accountType => {
+            createMyOwnElement(elementObjCreator("option", document.querySelector("#accType"), accountType, null, [{
                 key: "value",
-                val: clientType
+                val: accountType
             }]))
         })
     }
@@ -103,14 +104,17 @@ const drawAccountTypes = (accTypes) => {
 if (addClient) {
     const accTypes = ["Saving", "Current"]
     drawAccountTypes(accTypes)
+    // console.log(accTypes)
     addClient.addEventListener("submit", (e) => {
             e.preventDefault()
             let client = {
-                id: Date.now()
+                id: Date.now(),
+                accountNumber:Date.now()
             }
             clientHeads.forEach((head) => client[head] = addClient.elements[head].value)
     const clients = readFromStorage("clients")
     clients.push(client); 
+    console.log(clients)
     writeDataToStorage("clients", clients) 
     addClient.reset() 
     window.location.href = "index.html"
@@ -123,7 +127,8 @@ if (datawrap) {
         drawAllclients([])
     })
 }
-const singlewrap = document.querySelector("#singlewrap") if (singlewrap) {
+const singlewrap = document.querySelector("#singlewrap") 
+if (singlewrap) {
     const client = JSON.parse(localStorage.getItem("client"))
     singlewrap.innerHTML = `
     <div class="col-md-6 col-12 border border-2 border-primary">
@@ -133,33 +138,33 @@ const singlewrap = document.querySelector("#singlewrap") if (singlewrap) {
 }</p>
     </div>
     <div class="col-md-6 col-12 border border-2 border-primary">
-    <h5>Title</h5>
+    <h5>Client Name</h5>
     <p>${
-    client.clientTitle
+    client.clientName
 }</p>
     </div>
     <div class="col-md-6 col-12 border border-2 border-primary">
-    <h5>Type</h5>
+    <h5>Balance</h5>
     <p>${
-    client.clientType
+    client.balance
 }</p>
     </div>
     <div class="col-md-6 col-12 border border-2 border-primary">
-    <h5>Status</h5>
+    <h5>Account Number</h5>
     <p>${
-    client.status
+    client.accountNumber
 } </p>
     </div>
     <div class="col-md-12 col-12  border border-2 border-primary">
-    <h5>Due Date</h5>
+    <h5>Account Type</h5>
     <p>${
-    client.clientDueDate
+    client.accountType
 }</p>
     </div>
     <div class="col-md-12 col-12  border border-2 border-primary">
-    <h5>Content</h5>
+    <h5>Created Date</h5>
     <p>${
-    client.clientContent
+    client.createdDate
 }</p>
     </div> `
 }
