@@ -47,9 +47,9 @@ const writeDataToStorage = (storageItem, data) => {
     // draw Client
 const drawclient = (client, index) => {
     const tr = createMyOwnElement(elementObjCreator("tr", datawrap, null, null, []))
-    createMyOwnElement(elementObjCreator("td", tr, client.id, null, []))
-    createMyOwnElement(elementObjCreator("td", tr, client.clientName, null, []))
     createMyOwnElement(elementObjCreator("td", tr, client.accountNumber, null, []))
+    createMyOwnElement(elementObjCreator("td", tr, client.clientName, null, []))
+    createMyOwnElement(elementObjCreator("td", tr, client.balance, null, []))
     createMyOwnElement(elementObjCreator("td", tr, client.accountType, null, []))
     createMyOwnElement(elementObjCreator("td", tr, client.createdDate, null, []))
     const tdTrans = createMyOwnElement(elementObjCreator("td", tr, null, null, []))
@@ -108,8 +108,7 @@ if (addClient) {
     addClient.addEventListener("submit", (e) => {
             e.preventDefault()
             let client = {
-                id: Date.now(),
-                accountNumber:Date.now()
+                id: Date.now()
             }
             clientHeads.forEach((head) => client[head] = addClient.elements[head].value)
     const clients = readFromStorage("clients")
@@ -134,7 +133,7 @@ if (singlewrap) {
     <div class="col-md-6 col-12 border border-2 border-primary">
     <h5>ID</h5>
     <p>${
-    client.id
+    client.accountNumber
 }</p>
     </div>
     <div class="col-md-6 col-12 border border-2 border-primary">
@@ -148,13 +147,6 @@ if (singlewrap) {
     <p>${
     client.balance
 }</p>
-    </div>
-    <div class="col-md-6 col-12 border border-2 border-primary">
-    <h5>Account Number</h5>
-    <p>${
-    client.accountNumber
-} </p>
-    </div>
     <div class="col-md-12 col-12  border border-2 border-primary">
     <h5>Account Type</h5>
     <p>${
